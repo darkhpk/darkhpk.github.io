@@ -1,23 +1,60 @@
----
-layout: default
----
+<!doctype html>
+<html>
+  <head>
+    <title> My website</title>
+  </head>
+  <body>
+    <h1> Portal catre site!</h1>
+    <fieldset>
+      <legend>Login:</legend>
+      <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        Username:</br>
+      <input type="text" name="name"><span class="error">*<?php echo "$nameErr";?></span></br>
+        Password:</br>
+      <input type="password" name="pass"><span class="error">*<?php echo "$passErr";?></span></br>
+      <pre><input type="submit" name="submit" value="Login">           <a href="register.html target="_self">Register</a></pre>
+        </form>  
+     </fieldset>    
+<?php
+	$nameErr = $passErr = " ";
+	$name = $pass = " ";
+	
+	if ($_SERVER["REQUEST_METHOD"] == "POST"){
+		if (empty($_POST["name"])){
+			$nameErr = "Username is required";
+		
+		} else {
+			$name = test_input($_POST["name"]);
+			if (!preg_match("/^[a-zA-Z]*$", $name)){
+				$nameErr = "Only letters and white spaces!";
+			
+			}
+		
+		}
+	
+	}
+	if ($_SERVER["REQUEST_METHOD"] == "POST"){
+		if (empty($_POST["pass"])){
+			$passErr = "Password is required";
+		
+		} else {
+			$pass = test_input($_POST["pass"]);
+			if (!preg_match("/^=[a-zA-Z1-9];_", $pass)){
+				$passErr = "Only letters and numbers!!"
+			
+			}
+		
+		
+		}
+	
+	}
+function test_input($data){
+	$data = trim($data);
+	$data = stripslashes($data);
+	$data = htmlspecialchars($data);
+return $data;
+}
 
-<div class="home">
-
-  <h1 class="page-heading">Posts</h1>
-
-  <ul class="post-list">
-    {% for post in site.posts %}
-      <li>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-
-        <h2>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title | escape }}</a>
-        </h2>
-      </li>
-    {% endfor %}
-  </ul>
-
-  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-
-</div>
+?>   
+        </body>
+        </html>
