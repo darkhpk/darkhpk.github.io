@@ -7,7 +7,7 @@
     <h1> Portal catre site!</h1>
     <fieldset>
       <legend>Login:</legend>
-      <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+      <form method="post" action="<?php echo "htmlspecialchars($_SERVER["PHP_SELF"])"; ?>">
         Username:</br>
       <input type="text" name="name"><span class="error">*<?php echo "$nameErr";?></span></br>
         Password:</br>
